@@ -1,0 +1,3 @@
+flask
+PyPDF2
+euriai

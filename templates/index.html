@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Resume Parser</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      <i class="fas fa-brain"></i>
+      AI Resume Parser
+    </h1>
+
+    <!-- <h1>
+      <i class="fas fa-brain"></i>
+      <strong>Mohammad Wasiq</strong> 
+       
+    </h1> -->
+
+    <form method="POST" action="/upload_resume" enctype="multipart/form-data" autocomplete="off" id="resume-form">
+        <label class="file-label" tabindex="0">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span>Drag & Drop or Click to select your PDF resume</span>
+            <span class="file-note">PDF only — maximum 5MB</span>
+            <input type="file" name="resume" accept="application/pdf" required />
+            <span id="chosen-file" class="chosen-file"></span>
+        </label>
+
+      <div class="text-center">
+        <!-- <button type="submit"><i class="fas fa-upload"></i> Upload & Parse</button> -->
+        <button type="submit" id="parse-btn"><i class="fas fa-upload"></i> Upload & Parse</button>
+      </div>
+    </form>
+    <div id="resume-loader" class="resume-loader-overlay" style="display:none;">
+      <div class="circle-loader">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+      <div class="loader-text">Analyzing Resume…</div>
+    </div>
+
+    <div class="d-flex justify-content-end mb-3">
+        <button type="button" class="btn-reset" onclick="resetResumeParser()" title="Reset & Upload Again">
+            <i class="fas fa-redo-alt"></i> Reset
+        </button>
+    </div>
+    
+    {% if full_name %}
+
+    <div class="result-section shadow animate__animated animate__fadeInUp">
+      <h2><i class="fas fa-id-badge"></i> Resume Summary</h2>
+      <div class="result-item"><span class="highlight"><i class="fas fa-user"></i> Full Name:</span> {{ full_name }}</div>
+      <div class="result-item"><span class="highlight"><i class="fas fa-phone-alt"></i> Contact:</span> {{ contact_number }}</div>
+      <div class="result-item"><span class="highlight"><i class="fas fa-envelope"></i> Email:</span> {{ email_address }}</div>
+      <div class="result-item"><span class="highlight"><i class="fas fa-map-marker-alt"></i> Location:</span> {{ location }}</div>
+      <div class="result-item"><span class="highlight"><i class="fas fa-microchip"></i> Technical Skills:</span> {{ technical_skills }}</div>
+      <div class="result-item"><span class="highlight"><i class="fas fa-users"></i> Non-Technical Skills:</span> {{ non_technical_skills }}</div>
+      <div class="result-item"><span class="highlight"><i class="fas fa-graduation-cap"></i> Education:</span> <pre>{{ education }}</pre></div>
+      <div class="result-item"><span class="highlight"><i class="fas fa-briefcase"></i> Experience:</span> <pre>{{ work_experience }}</pre></div>
+      <div class="result-item"><span class="highlight"><i class="fas fa-certificate"></i> Certifications:</span> {{ certifications }}</div>
+      <div class="result-item"><span class="highlight"><i class="fas fa-language"></i> Languages:</span> {{ languages }}</div>
+      <div class="result-item"><span class="highlight"><i class="fas fa-tags"></i> Resume Category:</span> {{ suggested_resume_category }}</div>
+      <div class="result-item"><span class="highlight"><i class="fas fa-lightbulb"></i> Recommended Roles:</span> {{ recommended_job_roles }}</div>
+    </div>
+    {% endif %}
+  </div>
+  <footer>
+    <div>
+      Built with <i class="fas fa-heart"></i> by <strong>Mohammad Wasiq</strong> | © 2025 All rights reserved.
+    </div>
+    <div class="footer-social mt-2">
+      <a href="https://www.linkedin.com/in/mohammadwasiq0/" aria-label="LinkedIn" target="_blank">
+        <i class="fab fa-linkedin fa-lg"></i>
+      </a>
+      <a href="https://github.com/mohammadwasiq0" aria-label="GitHub" target="_blank">
+        <i class="fab fa-github fa-lg"></i>
+      </a>
+      <a href="mailto:mohammadwasiq0786@gmail.com" aria-label="Email" target="_blank">
+        <i class="fas fa-envelope fa-lg"></i>
+      </a>
+    </div>
+  </footer>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
